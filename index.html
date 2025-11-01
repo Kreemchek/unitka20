@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="theme-color" content="#635bff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>Калькулятор Юнит-Экономики</title>
+    <link rel="stylesheet" href="styles.css?v=2.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Библиотека для работы с Excel файлами -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-calculator"></i> Калькулятор Юнит-Экономики</h1>
+            <p>✨ Точный расчет прибыльности товара на Wildberries</p>
+            <div class="header-buttons">
+                <div class="author-info">
+                    <p><i class="fab fa-telegram"></i> Автор: <a href="https://t.me/MaksimovWB" target="_blank">@MaksimovWB</a></p>
+                </div>
+            </div>
+        </header>
+
+        <div class="calculator-grid">
+            <!-- Левая колонка - Ввод данных -->
+            <div class="input-section">
+                <h2><i class="fas fa-edit"></i> Ввод данных</h2>
+                
+                <!-- Поиск товара - ВАЖНО: размещаем первым для удобства -->
+                <div class="form-group" style="margin-bottom: 24px; padding: 16px; background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0.05) 100%); border-radius: 16px; border: 2px solid rgba(99, 102, 241, 0.2);">
+                    <label for="product-search" style="font-weight: 700; color: #6366f1; margin-bottom: 12px; display: block;">
+                        <i class="fas fa-search" style="margin-right: 8px;"></i> 🔍 Поиск товара и автозаполнение комиссии
+                    </label>
+                    <div class="search-container">
+                        <input type="text" id="product-search" placeholder="Введите название товара для поиска..." autocomplete="off" style="width: 100%; padding: 16px 20px; border: 2px solid rgba(99, 102, 241, 0.25); border-radius: 12px; font-size: 16px; font-weight: 500; background: white; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);">
+                        <div id="product-suggestions" class="suggestions-list"></div>
+                    </div>
+                    <div style="display: flex; gap: 8px; margin-top: 12px;">
+                        <button type="button" class="add-product-btn" onclick="showAddProductModal()" style="flex: 1; padding: 10px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 0.875rem;">
+                            <i class="fas fa-plus"></i> Добавить товар
+                        </button>
+                        <button type="button" class="import-products-btn" onclick="showImportModal()" style="flex: 1; padding: 10px; background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 0.875rem;">
+                            <i class="fas fa-upload"></i> Импорт
+                        </button>
+                    </div>
+                    <small style="display: block; margin-top: 12px; color: #6366f1; font-weight: 500;">
+                        💡 Начните вводить название товара → выберите из списка → комиссия заполнится автоматически
+                    </small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="units-sold">Продано единиц</label>
+                    <input type="number" id="units-sold" placeholder="Введите количество" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="logistics">Логистика ВБ (руб.)</label>
+                    <input type="number" id="logistics" placeholder="0.00" step="0.01" min="0">
+                    <small>Зависит от ФБО/ФБС, категории и товара</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="fulfillment">Фулфилмент (руб.)</label>
+                    <input type="number" id="fulfillment" placeholder="0.00" step="0.01" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="paid-acceptance">Платная приемка (руб.)</label>
+                    <input type="number" id="paid-acceptance" placeholder="0.00" step="0.01" min="0">
+                    <small>Стоимость платной приемки товара на складе ВБ</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="wb-commission">Комиссия ВБ (%)</label>
+                    <input type="number" id="wb-commission" placeholder="15.5" step="0.1" min="0" max="100">
+                    <small style="color: #6366f1; font-weight: 600;">✨ Заполняется автоматически при выборе товара из поиска выше</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="storage-cost">Стоимость хранения ВБ (руб.)</label>
+                    <input type="number" id="storage-cost" placeholder="0.00" step="0.01" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="advertising">Реклама (руб.)</label>
+                    <input type="number" id="advertising" placeholder="0.00" step="0.01" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="purchase-price">Закупочная цена товара (руб.)</label>
+                    <input type="number" id="purchase-price" placeholder="0.00" step="0.01" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="selling-price">Цена продажи (руб.)</label>
+                    <input type="number" id="selling-price" placeholder="0.00" step="0.01" min="0">
+                    <small>Розничная цена на ВБ</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="redemption-rate">Процент выкупа (%)</label>
+                    <input type="number" id="redemption-rate" placeholder="85" step="0.1" min="0" max="100">
+                </div>
+
+                <button class="calculate-btn" onclick="calculateEconomics()">
+                    <i class="fas fa-calculator"></i> Рассчитать
+                </button>
+            </div>
+
+            <!-- Правая колонка - Результаты -->
+            <div class="results-section">
+                <h2><i class="fas fa-chart-line"></i> Результаты расчетов</h2>
+                
+                <div class="results-grid">
+                    <div class="result-card">
+                        <h3>Фиксированные параметры</h3>
+                        <div class="result-item">
+                            <span>Эквайринг:</span>
+                            <span class="value">2.5%</span>
+                        </div>
+                    </div>
+
+                    <div class="result-card">
+                        <h3>Налогообложение</h3>
+                        <div class="result-item">
+                            <span>5%:</span>
+                            <span class="value" id="tax-5">0.00 руб.</span>
+                        </div>
+                        <div class="result-item">
+                            <span>7%:</span>
+                            <span class="value" id="tax-7">0.00 руб.</span>
+                        </div>
+                        <div class="result-item">
+                            <span>2%:</span>
+                            <span class="value" id="tax-2">0.00 руб.</span>
+                        </div>
+                    </div>
+
+                    <div class="result-card profit-card">
+                        <h3>Прибыль</h3>
+                        <div class="result-item">
+                            <span>При 5%:</span>
+                            <span class="value profit" id="profit-5">0.00 руб.</span>
+                        </div>
+                        <div class="result-item">
+                            <span>При 7%:</span>
+                            <span class="value profit" id="profit-7">0.00 руб.</span>
+                        </div>
+                        <div class="result-item">
+                            <span>При 2%:</span>
+                            <span class="value profit" id="profit-2">0.00 руб.</span>
+                        </div>
+                    </div>
+
+                    <div class="result-card metrics-card">
+                        <h3>Ключевые метрики</h3>
+                        <div class="result-item">
+                            <span>Маржинальность:</span>
+                            <span class="value" id="margin">0.00%</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Рентабельность:</span>
+                            <span class="value" id="profitability">0.00%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <h3><i class="fas fa-info-circle"></i> Сводка по единице товара</h3>
+                    <div id="unit-summary">
+                        <p>Заполните данные для расчета</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2025 Калькулятор Юнит-Экономики для Wildberries</p>
+            <p>Создано <a href="https://t.me/MaksimovWB" target="_blank">@MaksimovWB</a> для оптимизации бизнеса на маркетплейсах</p>
+        </footer>
+    </div>
+
+    <!-- Модальное окно для импорта товаров -->
+    <div id="import-products-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-upload"></i> Импорт товаров</h3>
+                <button class="modal-close" onclick="hideImportModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="import-format">Формат импорта</label>
+                    <select id="import-format" style="width: 100%; padding: 16px 20px; border: 2px solid rgba(99, 102, 241, 0.15); border-radius: 14px; font-size: 16px; background: rgba(255, 255, 255, 0.95); margin-bottom: 16px;">
+                        <option value="json">JSON (рекомендуется)</option>
+                        <option value="csv">CSV (через запятую)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="import-data">Вставьте данные товаров</label>
+                    <textarea id="import-data" rows="10" placeholder='JSON формат:&#10;[&#10;  {"name": "Название товара", "commission": 15.5, "warehouse": "ФБО"},&#10;  {"name": "Другой товар", "commission": 18.0, "warehouse": "ФБО"}&#10;]&#10;&#10;CSV формат:&#10;Название товара,15.5,ФБО&#10;Другой товар,18.0,ФБО' style="width: 100%; padding: 16px 20px; border: 2px solid rgba(99, 102, 241, 0.15); border-radius: 14px; font-size: 14px; font-family: 'Courier New', monospace; resize: vertical; background: rgba(255, 255, 255, 0.95);"></textarea>
+                    <small>Вставьте список товаров в выбранном формате</small>
+                </div>
+                <div class="form-group">
+                    <label style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                        <input type="file" id="import-file" accept=".json,.csv,.txt,.xlsx,.xls" style="display: none;" onchange="handleFileImport(event)">
+                        <span style="padding: 10px 16px; background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%); border-radius: 10px; border: 2px dashed rgba(99, 102, 241, 0.3); cursor: pointer; flex: 1; text-align: center; transition: all 0.3s;">
+                            <i class="fas fa-file-upload"></i> Или загрузите файл (JSON, CSV, Excel)
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn-cancel" onclick="hideImportModal()">Отмена</button>
+                <button class="modal-btn-save" onclick="importProducts()">Импортировать</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для добавления товара -->
+    <div id="add-product-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-plus-circle"></i> Добавить новый товар</h3>
+                <button class="modal-close" onclick="hideAddProductModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="new-product-name">Название товара</label>
+                    <input type="text" id="new-product-name" placeholder="Например: Кроссовки Nike">
+                </div>
+                <div class="form-group">
+                    <label for="new-product-commission">Комиссия ВБ (%)</label>
+                    <input type="number" id="new-product-commission" placeholder="15.5" step="0.1" min="0" max="100">
+                </div>
+                <div class="form-group">
+                    <label for="new-product-warehouse">Склад ВБ</label>
+                    <select id="new-product-warehouse" style="width: 100%; padding: 16px 20px; border: 2px solid rgba(99, 102, 241, 0.15); border-radius: 14px; font-size: 16px; background: rgba(255, 255, 255, 0.95);">
+                        <option value="ФБО">ФБО</option>
+                        <option value="ФБС">ФБС</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn-cancel" onclick="hideAddProductModal()">Отмена</button>
+                <button class="modal-btn-save" onclick="addNewProduct()">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="script.js?v=2.0"></script>
+    <script>
+        // Принудительная очистка кеша при загрузке
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                }
+            });
+        }
+        
+        // Очистка кеша при обновлении
+        window.addEventListener('beforeunload', function() {
+            localStorage.setItem('last_update', Date.now());
+        });
+        
+        console.log('App version: 2.0 - Updated interface with product search');
+    </script>
+</body>
+</html>

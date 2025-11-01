@@ -1,0 +1,1682 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #635bff;
+    --primary-hover: #5851e6;
+    --primary-light: rgba(99, 91, 255, 0.1);
+    --success: #00d4aa;
+    --text-primary: #0a2540;
+    --text-secondary: #425466;
+    --text-muted: #8898aa;
+    --border: #e6ebf1;
+    --border-hover: #cbd5e0;
+    --bg: #ffffff;
+    --bg-subtle: #f6f9fc;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(to bottom, #fafbfc 0%, #ffffff 100%);
+    min-height: 100vh;
+    color: var(--text-primary);
+    line-height: 1.6;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.01em;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 96px 40px;
+}
+
+/* Header - Премиум стиль с акцентами */
+.header {
+    background: transparent;
+    border-radius: 0;
+    padding: 0;
+    margin-bottom: 96px;
+    text-align: center;
+    position: relative;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--success) 100%);
+    border-radius: 2px;
+}
+
+.header h1 {
+    font-size: 64px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.header h1 i {
+    margin-right: 20px;
+    color: var(--primary);
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.header p {
+    font-size: 22px;
+    color: var(--text-secondary);
+    margin: 0;
+    font-weight: 400;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+/* Calculator Grid */
+.calculator-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    margin-bottom: 96px;
+}
+
+@media (max-width: 968px) {
+    .calculator-grid {
+        grid-template-columns: 1fr;
+        gap: 80px;
+    }
+}
+
+/* Input and Results Sections - Премиум карточки */
+.input-section,
+.results-section {
+    background: var(--bg);
+    border-radius: 16px;
+    padding: 48px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.input-section::before,
+.results-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--success) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.input-section:hover::before,
+.results-section:hover::before {
+    opacity: 1;
+}
+
+.input-section:hover,
+.results-section:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--border-hover);
+}
+
+.input-section h2,
+.results-section h2 {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 40px;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+}
+
+.input-section h2 i,
+.results-section h2 i {
+    margin-right: 16px;
+    color: var(--primary);
+    font-size: 28px;
+}
+
+/* Form Groups - Премиум стиль */
+.form-group {
+    margin-bottom: 36px;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 18px 24px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-size: 17px;
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: var(--bg);
+    box-shadow: 0 0 0 6px var(--primary-light);
+    transform: translateY(-1px);
+}
+
+.form-group input:hover {
+    border-color: var(--border-hover);
+    background: var(--bg);
+}
+
+.form-group small {
+    display: block;
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+/* Search Container - Премиум */
+.search-container {
+    position: relative;
+    width: 100%;
+}
+
+#product-search {
+    width: 100%;
+    padding: 18px 24px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-size: 17px;
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+    font-weight: 400;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#product-search:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: var(--bg);
+    box-shadow: 0 0 0 6px var(--primary-light);
+    transform: translateY(-1px);
+}
+
+#product-search:hover {
+    border-color: var(--border-hover);
+    background: var(--bg);
+}
+
+.suggestions-list {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    margin-top: 0;
+    max-height: 360px;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    display: none;
+    backdrop-filter: blur(20px);
+}
+
+.suggestions-list.show {
+    display: block;
+    animation: fadeInUp 0.2s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.suggestion-item {
+    padding: 18px 24px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border);
+    transition: all 0.15s ease;
+    position: relative;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--primary);
+    transform: scaleY(0);
+    transition: transform 0.15s ease;
+}
+
+.suggestion-item:hover {
+    background-color: var(--bg-subtle);
+    padding-left: 28px;
+}
+
+.suggestion-item:hover::before {
+    transform: scaleY(1);
+}
+
+.suggestion-item-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+    font-size: 16px;
+}
+
+.suggestion-item-commission {
+    font-size: 15px;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.suggestion-item-warehouse {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/* Buttons - Премиум стиль */
+.add-product-btn,
+.import-products-btn {
+    flex: 1;
+    padding: 16px 24px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 15px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--primary);
+    color: white;
+    letter-spacing: -0.01em;
+    position: relative;
+    overflow: hidden;
+}
+
+.add-product-btn::before,
+.import-products-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.add-product-btn:hover::before,
+.import-products-btn:hover::before {
+    left: 100%;
+}
+
+.add-product-btn:hover,
+.import-products-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(99, 91, 255, 0.3);
+}
+
+.add-product-btn:active,
+.import-products-btn:active {
+    transform: translateY(0);
+}
+
+.add-product-btn {
+    background: linear-gradient(135deg, var(--success) 0%, #00b894 100%);
+}
+
+.add-product-btn:hover {
+    box-shadow: 0 8px 24px rgba(0, 212, 170, 0.4);
+}
+
+.calculate-btn {
+    width: 100%;
+    padding: 24px 40px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 32px;
+    letter-spacing: -0.01em;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(99, 91, 255, 0.3);
+}
+
+.calculate-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+    transition: left 0.6s;
+}
+
+.calculate-btn:hover::before {
+    left: 100%;
+}
+
+.calculate-btn:hover {
+    background: linear-gradient(135deg, var(--primary-hover) 0%, #4f46e5 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(99, 91, 255, 0.4);
+}
+
+.calculate-btn:active {
+    transform: translateY(-1px);
+}
+
+/* Results - Премиум карточки */
+.results-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    margin-bottom: 40px;
+}
+
+.result-card {
+    background: var(--bg);
+    border-radius: 16px;
+    padding: 36px;
+    border: 1px solid var(--border);
+    margin-bottom: 28px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.result-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--primary) 0%, var(--success) 100%);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+.result-card:hover::before {
+    transform: scaleY(1);
+}
+
+.result-card:hover {
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-md);
+    transform: translateX(4px);
+}
+
+.result-card h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 28px;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.result-item:last-child {
+    border-bottom: none;
+}
+
+.result-item .label {
+    color: var(--text-secondary);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.result-item .value {
+    font-weight: 700;
+    color: var(--text-primary);
+    font-size: 20px;
+    letter-spacing: -0.02em;
+}
+
+.result-item .value.profit {
+    color: var(--success);
+    font-size: 22px;
+}
+
+.profit-card,
+.metrics-card {
+    background: var(--bg);
+    border-radius: 16px;
+    padding: 36px;
+    border: 1px solid var(--border);
+    margin-bottom: 28px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+}
+
+.profit-card:hover,
+.metrics-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.summary-card {
+    background: linear-gradient(135deg, var(--bg-subtle) 0%, var(--bg) 100%);
+    border-radius: 16px;
+    padding: 40px;
+    border: 2px solid var(--border);
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+}
+
+.summary-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(99, 91, 255, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.summary-card h3 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 32px;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    position: relative;
+    z-index: 1;
+}
+
+/* Footer - Премиум */
+.footer {
+    text-align: center;
+    padding: 96px 40px 48px;
+    color: var(--text-muted);
+    font-size: 15px;
+    border-top: 1px solid var(--border);
+    margin-top: 96px;
+    position: relative;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--success) 100%);
+    border-radius: 2px;
+}
+
+.footer a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.footer a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.2s ease;
+}
+
+.footer a:hover::after {
+    width: 100%;
+}
+
+/* Modal - Премиум стиль */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 37, 64, 0.7);
+    backdrop-filter: blur(8px);
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background: var(--bg);
+    border-radius: 16px;
+    padding: 0;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+    animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    padding: 40px 40px 28px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-subtle);
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+    background: var(--border);
+    color: var(--text-primary);
+    transform: rotate(90deg);
+}
+
+.modal-body {
+    padding: 40px;
+}
+
+.modal-footer {
+    padding: 28px 40px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    background: var(--bg-subtle);
+}
+
+.modal-btn-cancel,
+.modal-btn-save {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 16px;
+    letter-spacing: -0.01em;
+}
+
+.modal-btn-cancel {
+    background: var(--bg);
+    color: var(--text-secondary);
+    border: 2px solid var(--border);
+}
+
+.modal-btn-cancel:hover {
+    background: var(--bg-subtle);
+    border-color: var(--border-hover);
+    transform: translateY(-1px);
+}
+
+.modal-btn-save {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+    color: white;
+    box-shadow: 0 4px 16px rgba(99, 91, 255, 0.3);
+}
+
+.modal-btn-save:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(99, 91, 255, 0.4);
+}
+
+/* Telegram Web App - Полная адаптация */
+
+/* Базовые стили для Telegram */
+.telegram-webapp,
+.telegram-webapp body {
+    background: #ffffff !important;
+    min-height: 100vh !important;
+    overflow-x: hidden !important;
+}
+
+.telegram-webapp .container {
+    padding: 20px 16px 24px !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+}
+
+/* Header для Telegram */
+.telegram-webapp .header {
+    padding: 0 !important;
+    margin-bottom: 32px !important;
+    text-align: center !important;
+}
+
+.telegram-webapp .header::before {
+    width: 50px !important;
+    height: 2px !important;
+    top: -16px !important;
+}
+
+.telegram-webapp .header h1 {
+    font-size: 28px !important;
+    font-weight: 700 !important;
+    margin-bottom: 12px !important;
+    line-height: 1.2 !important;
+    color: var(--text-primary) !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
+    background-clip: unset !important;
+}
+
+.telegram-webapp .header h1 i {
+    font-size: 24px !important;
+    margin-right: 10px !important;
+    color: var(--primary) !important;
+}
+
+.telegram-webapp .header p {
+    font-size: 15px !important;
+    color: var(--text-secondary) !important;
+    line-height: 1.5 !important;
+    margin: 0 !important;
+}
+
+/* Calculator Grid для Telegram */
+.telegram-webapp .calculator-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 24px !important;
+    margin-bottom: 32px !important;
+}
+
+/* Секции для Telegram */
+.telegram-webapp .input-section,
+.telegram-webapp .results-section {
+    background: #ffffff !important;
+    border-radius: 12px !important;
+    padding: 24px 20px !important;
+    margin-bottom: 24px !important;
+    border: 1px solid var(--border) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+.telegram-webapp .input-section::before,
+.telegram-webapp .results-section::before {
+    height: 2px !important;
+}
+
+.telegram-webapp .input-section h2,
+.telegram-webapp .results-section h2 {
+    font-size: 22px !important;
+    font-weight: 600 !important;
+    margin-bottom: 24px !important;
+    color: var(--text-primary) !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+}
+
+.telegram-webapp .input-section h2 i,
+.telegram-webapp .results-section h2 i {
+    font-size: 20px !important;
+    margin-right: 10px !important;
+    color: var(--primary) !important;
+}
+
+/* Формы для Telegram */
+.telegram-webapp .form-group {
+    margin-bottom: 24px !important;
+}
+
+.telegram-webapp .form-group label {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    margin-bottom: 10px !important;
+    color: var(--text-primary) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+}
+
+.telegram-webapp .form-group input {
+    width: 100% !important;
+    padding: 16px 20px !important;
+    border: 2px solid var(--border) !important;
+    border-radius: 10px !important;
+    font-size: 16px !important;
+    background: var(--bg-subtle) !important;
+    color: var(--text-primary) !important;
+    font-weight: 400 !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    transition: all 0.2s ease !important;
+}
+
+.telegram-webapp .form-group input:focus {
+    outline: none !important;
+    border-color: var(--primary) !important;
+    background: var(--bg) !important;
+    box-shadow: 0 0 0 4px var(--primary-light) !important;
+    transform: none !important;
+}
+
+.telegram-webapp .form-group input:hover {
+    border-color: var(--border-hover) !important;
+    background: var(--bg) !important;
+}
+
+.telegram-webapp .form-group small {
+    font-size: 12px !important;
+    color: var(--text-muted) !important;
+    margin-top: 8px !important;
+}
+
+/* Поиск для Telegram */
+.telegram-webapp #product-search {
+    width: 100% !important;
+    padding: 16px 20px !important;
+    border: 2px solid var(--border) !important;
+    border-radius: 10px !important;
+    font-size: 16px !important;
+    background: var(--bg-subtle) !important;
+    color: var(--text-primary) !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+}
+
+.telegram-webapp #product-search:focus {
+    border-color: var(--primary) !important;
+    background: var(--bg) !important;
+    box-shadow: 0 0 0 4px var(--primary-light) !important;
+    transform: none !important;
+}
+
+.telegram-webapp .suggestions-list {
+    border-radius: 10px !important;
+    max-height: 250px !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+}
+
+.telegram-webapp .suggestion-item {
+    padding: 16px 20px !important;
+    min-height: 56px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
+
+/* Кнопки для Telegram */
+.telegram-webapp .add-product-btn,
+.telegram-webapp .import-products-btn {
+    padding: 14px 20px !important;
+    font-size: 14px !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    min-height: 48px !important;
+}
+
+.telegram-webapp .add-product-btn:active,
+.telegram-webapp .import-products-btn:active {
+    transform: scale(0.98) !important;
+}
+
+.telegram-webapp .calculate-btn {
+    width: 100% !important;
+    padding: 20px 28px !important;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 12px !important;
+    font-size: 17px !important;
+    font-weight: 600 !important;
+    margin-top: 24px !important;
+    min-height: 56px !important;
+    box-shadow: 0 4px 16px rgba(99, 91, 255, 0.3) !important;
+    transition: all 0.2s ease !important;
+}
+
+.telegram-webapp .calculate-btn:active {
+    transform: scale(0.98) !important;
+    box-shadow: 0 2px 8px rgba(99, 91, 255, 0.3) !important;
+}
+
+.telegram-webapp .calculate-btn:hover {
+    transform: none !important;
+}
+
+.telegram-webapp .calculate-btn::before {
+    display: none !important;
+}
+
+/* Карточки результатов для Telegram */
+.telegram-webapp .result-card,
+.telegram-webapp .profit-card,
+.telegram-webapp .metrics-card {
+    background: var(--bg) !important;
+    border-radius: 12px !important;
+    padding: 24px 20px !important;
+    border: 1px solid var(--border) !important;
+    margin-bottom: 20px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+.telegram-webapp .result-card::before {
+    display: none !important;
+}
+
+.telegram-webapp .result-card:hover {
+    transform: none !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+.telegram-webapp .result-card h3 {
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    margin-bottom: 20px !important;
+    color: var(--text-primary) !important;
+}
+
+.telegram-webapp .result-item {
+    padding: 14px 0 !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+}
+
+.telegram-webapp .result-item .label {
+    font-size: 14px !important;
+    color: var(--text-secondary) !important;
+    font-weight: 500 !important;
+}
+
+.telegram-webapp .result-item .value {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: var(--text-primary) !important;
+}
+
+.telegram-webapp .result-item .value.profit {
+    color: var(--success) !important;
+    font-size: 20px !important;
+}
+
+.telegram-webapp .summary-card {
+    background: var(--bg-subtle) !important;
+    border-radius: 12px !important;
+    padding: 28px 20px !important;
+    border: 1px solid var(--border) !important;
+    margin-bottom: 20px !important;
+}
+
+.telegram-webapp .summary-card::before {
+    display: none !important;
+}
+
+.telegram-webapp .summary-card h3 {
+    font-size: 22px !important;
+    font-weight: 600 !important;
+    margin-bottom: 24px !important;
+    color: var(--text-primary) !important;
+}
+
+/* Footer для Telegram */
+.telegram-webapp .footer {
+    padding: 40px 20px 32px !important;
+    margin-top: 40px !important;
+    font-size: 13px !important;
+    border-top: 1px solid var(--border) !important;
+}
+
+.telegram-webapp .footer::before {
+    width: 50px !important;
+    height: 2px !important;
+}
+
+/* Модальные окна для Telegram */
+.telegram-webapp .modal {
+    background-color: rgba(10, 37, 64, 0.8) !important;
+    backdrop-filter: blur(8px) !important;
+}
+
+.telegram-webapp .modal-content {
+    margin: 16px !important;
+    max-width: calc(100% - 32px) !important;
+    border-radius: 16px !important;
+    max-height: calc(100vh - 32px) !important;
+}
+
+.telegram-webapp .modal-header {
+    padding: 24px 20px 20px !important;
+}
+
+.telegram-webapp .modal-header h3 {
+    font-size: 22px !important;
+    font-weight: 600 !important;
+}
+
+.telegram-webapp .modal-close {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+}
+
+.telegram-webapp .modal-body {
+    padding: 24px 20px !important;
+}
+
+.telegram-webapp .modal-footer {
+    padding: 20px !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+}
+
+.telegram-webapp .modal-btn-cancel,
+.telegram-webapp .modal-btn-save {
+    width: 100% !important;
+    padding: 16px 24px !important;
+    font-size: 16px !important;
+    min-height: 48px !important;
+}
+
+.telegram-webapp .modal-btn-save:active {
+    transform: scale(0.98) !important;
+}
+
+/* Отключаем все hover эффекты для Telegram */
+.telegram-webapp *:hover {
+    transform: none !important;
+}
+
+.telegram-webapp .input-section:hover,
+.telegram-webapp .results-section:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    border-color: var(--border) !important;
+}
+
+/* Улучшаем скролл для Telegram */
+.telegram-webapp * {
+    -webkit-overflow-scrolling: touch !important;
+}
+
+.telegram-webapp .suggestions-list,
+.telegram-webapp .modal-content {
+    -webkit-overflow-scrolling: touch !important;
+}
+
+/* Фиксируем размеры для Telegram */
+.telegram-webapp {
+    font-size: 16px !important;
+    -webkit-text-size-adjust: 100% !important;
+    -moz-text-size-adjust: 100% !important;
+    text-size-adjust: 100% !important;
+    overflow-x: hidden !important;
+    position: relative !important;
+}
+
+/* Использование viewport height от Telegram */
+.telegram-webapp body {
+    min-height: var(--tg-viewport-height, 100vh) !important;
+}
+
+/* Оптимизация скролла для Telegram */
+.telegram-webapp .container {
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+/* Улучшаем производительность для Telegram */
+.telegram-webapp * {
+    -webkit-tap-highlight-color: rgba(99, 91, 255, 0.1) !important;
+    tap-highlight-color: rgba(99, 91, 255, 0.1) !important;
+}
+
+/* Оптимизация для безопасных зон (вырез экрана) */
+@supports (padding: max(0px)) {
+    .telegram-webapp .container {
+        padding-left: max(16px, env(safe-area-inset-left)) !important;
+        padding-right: max(16px, env(safe-area-inset-right)) !important;
+        padding-top: max(20px, env(safe-area-inset-top)) !important;
+        padding-bottom: max(24px, env(safe-area-inset-bottom)) !important;
+    }
+}
+
+/* Responsive - Полная мобильная адаптация */
+
+/* Планшеты и меньше */
+@media (max-width: 968px) {
+    .container {
+        padding: 64px 32px;
+    }
+    
+    .header {
+        margin-bottom: 64px;
+    }
+    
+    .header h1 {
+        font-size: 48px;
+    }
+    
+    .header p {
+        font-size: 20px;
+    }
+    
+    .calculator-grid {
+        gap: 56px;
+    }
+    
+    .input-section,
+    .results-section {
+        padding: 40px 32px;
+    }
+    
+    .input-section h2,
+    .results-section h2 {
+        font-size: 28px;
+        margin-bottom: 32px;
+    }
+}
+
+/* Мобильные устройства */
+@media (max-width: 768px) {
+    .container {
+        padding: 40px 20px;
+    }
+    
+    .header {
+        margin-bottom: 48px;
+    }
+    
+    .header::before {
+        width: 60px;
+        height: 3px;
+        top: -24px;
+    }
+    
+    .header h1 {
+        font-size: 36px;
+        margin-bottom: 16px;
+        line-height: 1.2;
+    }
+    
+    .header h1 i {
+        margin-right: 12px;
+        font-size: 28px;
+    }
+    
+    .header p {
+        font-size: 17px;
+        line-height: 1.5;
+    }
+    
+    .calculator-grid {
+        gap: 48px;
+        margin-bottom: 64px;
+    }
+    
+    .input-section,
+    .results-section {
+        padding: 28px 20px;
+        border-radius: 12px;
+    }
+    
+    .input-section::before,
+    .results-section::before {
+        height: 2px;
+    }
+    
+    .input-section h2,
+    .results-section h2 {
+        font-size: 24px;
+        margin-bottom: 28px;
+        flex-wrap: wrap;
+    }
+    
+    .input-section h2 i,
+    .results-section h2 i {
+        font-size: 22px;
+        margin-right: 12px;
+    }
+    
+    .form-group {
+        margin-bottom: 28px;
+    }
+    
+    .form-group label {
+        font-size: 11px;
+        margin-bottom: 10px;
+    }
+    
+    .form-group input {
+        padding: 16px 20px;
+        font-size: 16px;
+        border-radius: 10px;
+        -webkit-appearance: none;
+    }
+    
+    .form-group input:focus {
+        box-shadow: 0 0 0 4px var(--primary-light);
+    }
+    
+    .form-group small {
+        font-size: 12px;
+        margin-top: 8px;
+    }
+    
+    #product-search {
+        padding: 16px 20px;
+        font-size: 16px;
+    }
+    
+    .suggestions-list {
+        border-radius: 10px;
+        max-height: 280px;
+    }
+    
+    .suggestion-item {
+        padding: 16px 20px;
+    }
+    
+    .suggestion-item-name {
+        font-size: 15px;
+    }
+    
+    .suggestion-item-commission {
+        font-size: 14px;
+    }
+    
+    .add-product-btn,
+    .import-products-btn {
+        padding: 14px 20px;
+        font-size: 14px;
+        border-radius: 10px;
+    }
+    
+    .calculate-btn {
+        padding: 20px 28px;
+        font-size: 17px;
+        margin-top: 28px;
+        border-radius: 12px;
+    }
+    
+    .result-card,
+    .profit-card,
+    .metrics-card {
+        padding: 24px 20px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+    }
+    
+    .result-card h3 {
+        font-size: 20px;
+        margin-bottom: 24px;
+    }
+    
+    .result-item {
+        padding: 14px 0;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .result-item .label {
+        font-size: 14px;
+        width: 100%;
+    }
+    
+    .result-item .value {
+        font-size: 18px;
+        width: 100%;
+    }
+    
+    .result-item .value.profit {
+        font-size: 20px;
+    }
+    
+    .summary-card {
+        padding: 28px 20px;
+        border-radius: 12px;
+    }
+    
+    .summary-card h3 {
+        font-size: 24px;
+        margin-bottom: 24px;
+    }
+    
+    .footer {
+        padding: 64px 20px 40px;
+        margin-top: 64px;
+        font-size: 14px;
+    }
+    
+    .footer::before {
+        width: 60px;
+        height: 3px;
+    }
+    
+    .modal-content {
+        margin: 20px;
+        max-width: calc(100% - 40px);
+        border-radius: 12px;
+    }
+    
+    .modal-header {
+        padding: 28px 24px 20px;
+    }
+    
+    .modal-header h3 {
+        font-size: 24px;
+    }
+    
+    .modal-close {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .modal-body {
+        padding: 28px 24px;
+    }
+    
+    .modal-footer {
+        padding: 24px;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .modal-btn-cancel,
+    .modal-btn-save {
+        width: 100%;
+        padding: 16px 24px;
+        font-size: 15px;
+    }
+}
+
+/* Маленькие мобильные */
+@media (max-width: 480px) {
+    .container {
+        padding: 32px 16px;
+    }
+    
+    .header {
+        margin-bottom: 40px;
+    }
+    
+    .header h1 {
+        font-size: 32px;
+    }
+    
+    .header h1 i {
+        font-size: 24px;
+        margin-right: 10px;
+    }
+    
+    .header p {
+        font-size: 16px;
+    }
+    
+    .calculator-grid {
+        gap: 40px;
+        margin-bottom: 48px;
+    }
+    
+    .input-section,
+    .results-section {
+        padding: 24px 16px;
+    }
+    
+    .input-section h2,
+    .results-section h2 {
+        font-size: 22px;
+        margin-bottom: 24px;
+    }
+    
+    .form-group {
+        margin-bottom: 24px;
+    }
+    
+    .form-group input {
+        padding: 14px 18px;
+        font-size: 16px;
+    }
+    
+    #product-search {
+        padding: 14px 18px;
+    }
+    
+    .calculate-btn {
+        padding: 18px 24px;
+        font-size: 16px;
+        margin-top: 24px;
+    }
+    
+    .result-card,
+    .profit-card,
+    .metrics-card,
+    .summary-card {
+        padding: 20px 16px;
+    }
+    
+    .result-card h3,
+    .summary-card h3 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .result-item {
+        padding: 12px 0;
+    }
+    
+    .result-item .label {
+        font-size: 13px;
+    }
+    
+    .result-item .value {
+        font-size: 17px;
+    }
+    
+    .result-item .value.profit {
+        font-size: 19px;
+    }
+    
+    .footer {
+        padding: 48px 16px 32px;
+        margin-top: 48px;
+        font-size: 13px;
+    }
+    
+    .modal-content {
+        margin: 16px;
+        max-width: calc(100% - 32px);
+    }
+    
+    .modal-header {
+        padding: 24px 20px 18px;
+    }
+    
+    .modal-header h3 {
+        font-size: 22px;
+    }
+    
+    .modal-body {
+        padding: 24px 20px;
+    }
+    
+    .modal-footer {
+        padding: 20px;
+    }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 360px) {
+    .container {
+        padding: 24px 12px;
+    }
+    
+    .header h1 {
+        font-size: 28px;
+    }
+    
+    .header p {
+        font-size: 15px;
+    }
+    
+    .input-section,
+    .results-section {
+        padding: 20px 14px;
+    }
+    
+    .input-section h2,
+    .results-section h2 {
+        font-size: 20px;
+    }
+    
+    .form-group input,
+    #product-search {
+        padding: 12px 16px;
+        font-size: 15px;
+    }
+    
+    .calculate-btn {
+        padding: 16px 20px;
+        font-size: 15px;
+    }
+    
+    .result-card,
+    .profit-card,
+    .metrics-card,
+    .summary-card {
+        padding: 18px 14px;
+    }
+}
+
+/* Ландшафтная ориентация мобильных */
+@media (max-width: 768px) and (orientation: landscape) {
+    .container {
+        padding: 32px 20px;
+    }
+    
+    .header {
+        margin-bottom: 40px;
+    }
+    
+    .header h1 {
+        font-size: 32px;
+    }
+    
+    .calculator-grid {
+        gap: 32px;
+    }
+    
+    .input-section,
+.results-section {
+        padding: 24px 20px;
+    }
+}
+
+/* Touch-friendly элементы для мобильных */
+@media (max-width: 768px) {
+    /* Увеличиваем зоны клика для touch */
+    .suggestion-item {
+        min-height: 56px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .modal-close {
+        min-width: 44px;
+        min-height: 44px;
+    }
+    
+    /* Убираем hover эффекты на touch устройствах */
+    @media (hover: none) {
+        .result-card:hover {
+            transform: none;
+        }
+        
+        .input-section:hover,
+        .results-section:hover {
+            transform: none;
+        }
+    }
+}
+
+/* Дополнительная оптимизация для Telegram на разных устройствах */
+@media (max-width: 768px) {
+    .telegram-webapp .container {
+        padding: 16px 12px 20px !important;
+    }
+    
+    .telegram-webapp .header {
+        margin-bottom: 24px !important;
+    }
+    
+    .telegram-webapp .header h1 {
+        font-size: 24px !important;
+    }
+    
+    .telegram-webapp .header p {
+        font-size: 14px !important;
+    }
+    
+    .telegram-webapp .calculator-grid {
+        gap: 20px !important;
+    }
+    
+    .telegram-webapp .input-section,
+    .telegram-webapp .results-section {
+        padding: 20px 16px !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .telegram-webapp .input-section h2,
+    .telegram-webapp .results-section h2 {
+        font-size: 20px !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .telegram-webapp .form-group {
+        margin-bottom: 20px !important;
+    }
+    
+    .telegram-webapp .form-group input {
+        font-size: 16px !important;
+        padding: 14px 18px !important;
+    }
+    
+    .telegram-webapp .calculate-btn {
+        padding: 18px 24px !important;
+        font-size: 16px !important;
+        margin-top: 20px !important;
+        min-height: 52px !important;
+    }
+    
+    .telegram-webapp .result-card,
+    .telegram-webapp .profit-card,
+    .telegram-webapp .metrics-card,
+    .telegram-webapp .summary-card {
+        padding: 20px 16px !important;
+    }
+    
+    .telegram-webapp .result-card h3,
+    .telegram-webapp .summary-card h3 {
+        font-size: 18px !important;
+        margin-bottom: 18px !important;
+    }
+    
+    .telegram-webapp .footer {
+        padding: 32px 16px 24px !important;
+        margin-top: 32px !important;
+        font-size: 12px !important;
+    }
+}
